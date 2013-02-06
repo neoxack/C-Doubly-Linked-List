@@ -176,14 +176,14 @@ int remove_front(list* llist, list_op free_func)
   * @param free_func pointer to a function that is responsible for freeing the node's data.
   * @return -1 if the remove failed 0 if the remove succeeded.
   */
-int remove_index(list* llist, int index, list_op free_func)
+int remove_index(list* llist, size_t index, list_op free_func)
 {
   if (!llist->size) return -1;
 
   node *current = llist->head; // = index of 0
 
   // loop through until you get to where you want
-  for (int i=0; i<index; i++) {
+  for (size_t i=0; i<index; i++) {
     current = current->next;
   }
 
@@ -268,7 +268,7 @@ int remove_data(list* llist, const void* data, equal_op compare_func, list_op fr
   node *prev = current->prev;
   int is_head = 1;
 
-  for (int i=0; i<llist->size; i++) {
+  for (size_t i=0; i<llist->size; i++) {
     if (compare_func(data, current->data)) {
       // if we are still on the head update the current head
       if (is_head) llist->head = next;
@@ -328,7 +328,7 @@ int remove_if(list* llist, list_pred pred_func, list_op free_func)
   node *prev = current->prev;
   int is_head = 1;
 
-  for (int i=0; i<llist->size; i++) {
+  for (size_t i=0; i<llist->size; i++) {
     if (pred_func(current->data)) {
       // if we're still on the head update the list's head
       if (is_head) llist->head = next;
@@ -396,7 +396,7 @@ void* front(list* llist)
   * @param llist a pointer to the list
   * @return The data at the indexth node in the linked list or NULL.
   */
-void* get_index(list* llist, int index)
+void* get_index(list* llist, size_t index)
 {
   // if the list is 0 or if the index in larger than the size
   if (!llist->size || index >= llist->size) {
@@ -405,7 +405,7 @@ void* get_index(list* llist, int index)
   
   // loop through the list until you get to the desired index
   node *current = llist->head; // index = 0
-  for (int i=0; i<index; i++) {
+  for (size_t i=0; i<index; i++) {
     current = current->next;
   }
 
@@ -471,7 +471,7 @@ int find_occurrence(list* llist, const void* search, equal_op compare_func)
 {
   // loop through the list
   node *current = llist->head;
-  for (int i=0; i<llist->size; i++) {
+  for (size_t i=0; i<llist->size; i++) {
     // if the compare func is 1, occurrence found return 1
     if (compare_func(search, current->data)) return 1;
     current = current->next;
@@ -498,7 +498,7 @@ void empty_list(list* llist, list_op free_func)
   node *next = current->next;
 
   // loop through the list and free all the nodes
-  for (int i=0; i<llist->size; i++) {
+  for (size_t i=0; i<llist->size; i++) {
     free_func(current->data);
     free(current);
     current = next;
@@ -522,7 +522,7 @@ void empty_list(list* llist, list_op free_func)
 void traverse(list* llist, list_op do_func)
 {
   node *current = llist->head;
-  for (int i=0; i<llist->size; i++) {
+  for (size_t i=0; i<llist->size; i++) {
     do_func(current->data);
     current = current->next;
   }

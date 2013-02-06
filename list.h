@@ -22,7 +22,7 @@ struct lnode;
 typedef struct llist
 {
   struct lnode* head; /* Head pointer either points to a node with data or NULL */
-  unsigned int size; /* Size of the linked list */
+  size_t size; /* Size of the linked list */
 } list;
 
 /* A function pointer type that points to a function that takes in a void* and returns nothing call it list_op */
@@ -50,7 +50,7 @@ void push_back(list* llist, void* data);
 
 /* Removing */
 int remove_front(list* llist, list_op free_func);
-int remove_index(list* llist, int index, list_op free_func);
+int remove_index(list* llist, size_t index, list_op free_func);
 int remove_back(list* llist, list_op free_func);
 int remove_data(list* llist, const void* data, equal_op compare_func, list_op free_func);
 int remove_if(list* llist, list_pred pred_func, list_op free_func);
@@ -58,7 +58,7 @@ int remove_if(list* llist, list_pred pred_func, list_op free_func);
 /* Querying List */
 void* front(list* llist);
 void* back(list* llist);
-void* get_index(list* llist, int index);
+void* get_index(list* llist, size_t index);
 int is_empty(list* llist);
 int size(list* llist);
 
